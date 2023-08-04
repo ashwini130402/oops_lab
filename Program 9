@@ -1,0 +1,36 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string filename = "names.txt"; // Replace with the name of your input file
+    ifstream inputFile(filename);
+
+    if (!inputFile.is_open()) {
+        cout << "Error opening file: " << filename << endl;
+        return 1;
+    }
+
+    vector<string> names;
+    string name;
+
+    // Read names from the file and store them in the vector
+    while (getline(inputFile, name)) {
+        names.push_back(name);
+    }
+
+    inputFile.close();
+
+    // Sort the names
+    sort(names.begin(), names.end());
+
+    // Display the sorted names
+    cout << "Sorted names:\n";
+    for (const string& sortedName : names) {
+        cout << sortedName << endl;
+    }
+
+    return 0;
+}
