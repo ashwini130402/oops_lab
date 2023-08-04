@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+class MyPointer {
+private:
+    int* ptr;
+
+public:
+    MyPointer(int* p) : ptr(p) {}
+
+    int operator->() {
+        return *ptr;
+    }
+};
+
+int main() {
+    int value = 42;
+    MyPointer myPtr(&value);
+
+    cout << "Value using -> operator: " << myPtr-> << endl;
+
+    return 0;
+}
