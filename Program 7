@@ -1,0 +1,94 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Patient {
+protected:
+    string name;
+    int age;
+    string gender;
+
+public:
+    Patient(const string& n, int a, const string& g) : name(n), age(a), gender(g) {}
+
+    virtual void enterInformation() {
+        cout << "Enter patient name: ";
+        cin.ignore();
+        getline(cin, name);
+        cout << "Enter patient age: ";
+        cin >> age;
+        cout << "Enter patient gender: ";
+        cin.ignore();
+        getline(cin, gender);
+    }
+
+    virtual void displayInformation() {
+        cout << "Name: " << name << ", Age: " << age << ", Gender: " << gender << endl;
+    }
+};
+
+class PediatricPatient : public Patient {
+private:
+    string parentName;
+
+public:
+    PediatricPatient(const string& n, int a, const string& g, const string& parent)
+        : Patient(n, a, g), parentName(parent) {}
+
+    void enterInformation() override {
+        Patient::enterInformation();
+        cout << "Enter parent/guardian name: ";
+        getline(cin, parentName);
+    }
+
+    void displayInformation() override {
+        Patient::displayInformation();
+        cout << "Parent/Guardian Name: " << parentName << endl;
+    }
+};
+
+int main() {
+    vector<Patient*> patientDatabase;
+
+    int numPatients;
+    cout << "Enter the number of patients in the database: ";
+    cin >> numPatients;
+
+    for (int i = 0; i < numPatients; i++) {
+        cout << "\nEnter information for patient " << i + 1 << ":\n";
+        string patientType;
+        cout << "Enter patient type (Pediatric/Regular): ";
+        cin >> patientType;
+
+        if (patientType == "Pediatric") {
+            string parentName;
+            cout << "Enter parent/guardian name: ";
+            cin.ignore();
+            getline(cin, parentName);
+
+            PediatricPatient* pediatricPatient = new PediatricPatient("", 0, "", parentName);
+            pediatricPatient->enterInformation();
+            patientDatabase.push_back(pediatricPatient);
+        } else if (patientType == "Regular") {
+            Patient* patient = new Patient("", 0, "");
+            patient->enterInformation();
+            patientDatabase.push_back(patient);
+        } else {
+            cout << "Invalid patient type. Skipping this patient.\n";
+            i--;
+        }
+    }
+
+    cout << "\nPatient Database:\n";
+    for (Patient* patient : patientDatabase) {
+        patient->displayInformation();
+    }
+
+    // Free memory for the dynamically allocated objects
+    for (Patient* patient : patientDatabase) {
+        delete patient;
+    }
+
+    return 0;
+}
