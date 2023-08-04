@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+template <typename T>
+class MySort {
+private:
+    vector<T> elements;
+
+public:
+    MySort() {}
+
+    void addElement(T element) {
+        elements.push_back(element);
+    }
+
+    void sortElements() {
+        sort(elements.begin(), elements.end());
+    }
+
+    void displaySortedElements() {
+        cout << "Sorted elements: ";
+        for (const T& element : elements) {
+            cout << element << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    MySort<int> intSort;
+    intSort.addElement(5);
+    intSort.addElement(2);
+    intSort.addElement(8);
+    intSort.addElement(1);
+    intSort.addElement(3);
+
+    intSort.sortElements();
+    intSort.displaySortedElements();
+
+    MySort<double> doubleSort;
+    doubleSort.addElement(3.5);
+    doubleSort.addElement(1.2);
+    doubleSort.addElement(6.8);
+    doubleSort.addElement(2.1);
+    doubleSort.addElement(5.9);
+
+    doubleSort.sortElements();
+    doubleSort.displaySortedElements();
+
+    return 0;
+}
