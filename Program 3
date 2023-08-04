@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+// Inline function to find the largest of three numbers
+inline int findLargest(int num1, int num2, int num3) {
+    return (num1 > num2) ? ((num1 > num3) ? num1 : num3) : ((num2 > num3) ? num2 : num3);
+}
+
+int main() {
+    int num1, num2, num3;
+    
+    cout << "Enter three numbers: ";
+    cin >> num1 >> num2 >> num3;
+    
+    int largest = findLargest(num1, num2, num3);
+    
+    cout << "The largest of the three numbers is: " << largest << endl;
+    
+    return 0;
+}
