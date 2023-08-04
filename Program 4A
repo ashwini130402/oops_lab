@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+class SharedResource {
+private:
+    static int sharedVariable;
+
+public:
+    // Function to access the shared resource
+    void accessResource() {
+        if (sharedVariable > 0) {
+            cout << "Accessing the shared resource. Remaining: " << sharedVariable << endl;
+            sharedVariable--;
+        } else {
+            cout << "No more access to the shared resource." << endl;
+        }
+    }
+};
+
+// Initialize the static member variable
+int SharedResource::sharedVariable = 5; // For example, 5 accesses allowed initially
+
+int main() {
+    SharedResource obj1, obj2, obj3;
+
+    obj1.accessResource();
+    obj2.accessResource();
+    obj3.accessResource();
+    obj1.accessResource();
+    obj2.accessResource();
+    obj3.accessResource();
+    obj1.accessResource();
+    obj2.accessResource();
+    obj3.accessResource();
+    obj1.accessResource();
+    obj2.accessResource();
+    obj3.accessResource();
+
+    return 0;
+}
