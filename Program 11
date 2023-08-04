@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+class CurrencyConverter {
+public:
+    virtual double dollarToRupees(double dollarAmount) const = 0;
+    virtual double euroToRupees(double euroAmount) const = 0;
+    virtual double poundToRupees(double poundAmount) const = 0;
+};
+
+class CurrencyConverterImpl : public CurrencyConverter {
+public:
+    double dollarToRupees(double dollarAmount) const override {
+        return dollarAmount * 54.3;
+    }
+
+    double euroToRupees(double euroAmount) const override {
+        return euroAmount * 70.0;
+    }
+
+    double poundToRupees(double poundAmount) const override {
+        return poundAmount * 81.1;
+    }
+};
+
+int main() {
+    CurrencyConverterImpl converter;
+
+    double dollarAmount, euroAmount, poundAmount;
+    cout << "Enter amount in dollars: ";
+    cin >> dollarAmount;
+
+    cout << "Enter amount in euros: ";
+    cin >> euroAmount;
+
+    cout << "Enter amount in pounds: ";
+    cin >> poundAmount;
+
+    cout << "Rupees equivalent:\n";
+    cout << dollarAmount << " dollars = " << converter.dollarToRupees(dollarAmount) << " Rs\n";
+    cout << euroAmount << " euros = " << converter.euroToRupees(euroAmount) << " Rs\n";
+    cout << poundAmount << " pounds = " << converter.poundToRupees(poundAmount) << " Rs\n";
+
+    return 0;
+}
