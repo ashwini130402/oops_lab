@@ -1,0 +1,49 @@
+#include <iostream>
+#include <exception>
+using namespace std;
+
+// User-defined exception class for divide by zero
+class DivideByZeroException : public exception {
+public:
+    const char* what() const throw() {
+        return "Error: Divide by zero!";
+    }
+};
+
+// User-defined exception class for negative number input
+class NegativeNumberException : public exception {
+public:
+    const char* what() const throw() {
+        return "Error: Negative number input!";
+    }
+};
+
+int divideNumbers(int numerator, int denominator) {
+    if (denominator == 0) {
+        throw DivideByZeroException();
+    }
+    return numerator / denominator;
+}
+
+int main() {
+    try {
+        int num1, num2;
+        cout << "Enter two numbers: ";
+        cin >> num1 >> num2;
+
+        if (num1 < 0 || num2 < 0) {
+            throw NegativeNumberException();
+        }
+
+        int result = divideNumbers(num1, num2);
+        cout << "Result of division: " << result << endl;
+    } catch (DivideByZeroException& ex) {
+        cout << ex.what() << endl;
+    } catch (NegativeNumberException& ex) {
+        cout << ex.what() << endl;
+    } catch (exception& ex) {
+        cout << "Error: " << ex.what() << endl;
+    }
+
+    return 0;
+}
