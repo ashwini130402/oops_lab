@@ -1,0 +1,93 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+private:
+    string usn;
+    string name;
+    int marks[3];
+
+public:
+    // Member function to read student details
+    void readData() {
+        cout << "Enter USN: ";
+        cin >> usn;
+        cout << "Enter Name: ";
+        cin.ignore();
+        getline(cin, name);
+        cout << "Enter marks in 3 subjects: ";
+        for (int i = 0; i < 3; i++) {
+            cin >> marks[i];
+        }
+    }
+
+    // Member function to display student details
+    void display() {
+        cout << "\nUSN: " << usn << endl;
+        cout << "Name: " << name << endl;
+        cout << "Marks in 3 subjects: ";
+        for (int i = 0; i < 3; i++) {
+            cout << marks[i] << " ";
+        }
+        cout << endl;
+    }
+
+    // Member function to calculate average of best 2 marks
+    double calculateAverage() {
+        int max1 = marks[0], max2 = marks[1];
+        for (int i = 2; i < 3; i++) {
+            if (marks[i] > max1) {
+                max2 = max1;
+                max1 = marks[i];
+            } else if (marks[i] > max2) {
+                max2 = marks[i];
+            }
+        }
+        return (max1 + max2) / 2.0;
+    }
+};
+
+int main() {
+    int n;
+    cout << "Enter the number of students: ";
+    cin >> n;
+
+    Student *students = new Student[n];
+
+    // Read details of all students
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter details of student " << i + 1 << ":" << endl;
+        students[i].readData();
+    }
+
+    // Display details of all students and calculate their average
+    for (int i = 0; i < n; i++) {
+        cout << "\nDetails of student " << i + 1 << ":" << endl;
+        students[i].display();
+        double average = students[i].calculateAverage();
+        cout << "Average of best 2 marks: " << average << endl;
+    }
+
+    // Find the topper among all students
+    double maxAverage = 0;
+    int topperIndex = -1;
+    for (int i = 0; i < n; i++) {
+        double average = students[i].calculateAverage();
+        if (average > maxAverage) {
+            maxAverage = average;
+            topperIndex = i;
+        }
+    }
+
+    if (topperIndex != -1) {
+        cout << "\nTopper is:\n";
+        students[topperIndex].display();
+    } else {
+        cout << "\nNo students found.\n";
+    }
+
+    delete[] students;
+
+    return 0;
+}
