@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+class MyFunction {
+public:
+    int operator()(int x, int y) {
+        return x + y;
+    }
+};
+
+int main() {
+    MyFunction myFunc;
+
+    int result = myFunc(3, 5); // Calls the overloaded () operator
+    cout << "Result: " << result << endl;
+
+    return 0;
+}
