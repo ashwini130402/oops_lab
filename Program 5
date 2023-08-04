@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Date {
+private:
+    int day;
+    int month;
+    int year;
+
+public:
+    // Constructor to accept date in "dd-mm-yyyy" format
+    Date(int d, int m, int y) : day(d), month(m), year(y) {}
+
+    // Constructor to accept date in "mm/dd/yyyy" format
+    Date(const string& dateStr) {
+        // Assuming dateStr is in "mm/dd/yyyy" format
+        size_t pos1 = dateStr.find('/');
+        size_t pos2 = dateStr.find('/', pos1 + 1);
+        month = stoi(dateStr.substr(0, pos1));
+        day = stoi(dateStr.substr(pos1 + 1, pos2 - pos1 - 1));
+        year = stoi(dateStr.substr(pos2 + 1));
+    }
+
+    // Constructor to accept date in "yyyy-mm-dd" format
+    Date(const char* dateStr) {
+        // Assuming dateStr is in "yyyy-mm-dd" format
+        sscanf(dateStr, "%d-%d-%d", &year, &month, &day);
+    }
+
+    void displayDate() {
+        cout << "Date: " << day << "-" << month << "-" << year << endl;
+    }
+};
+
+int main() {
+    Date date1(25, 8, 2023);
+    date1.displayDate();
+
+    Date date2("11/15/2023");
+    date2.displayDate();
+
+    Date date3("2023-12-31");
+    date3.displayDate();
+
+    return 0;
+}
