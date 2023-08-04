@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+class List {
+private:
+    Node* head;
+
+public:
+    List() {
+        head = nullptr;
+    }
+
+    // Function to insert an element at the front of the list
+    void insertFront(int value) {
+        Node* newNode = new Node(value);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Function to delete an element from the front of the list
+    void deleteFront() {
+        if (head) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        } else {
+            cout << "List is empty. Cannot delete.\n";
+        }
+    }
+
+    // Function to display the elements in the list
+    void displayList() {
+        Node* current = head;
+        cout << "List elements: ";
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    List myList;
+
+    myList.insertFront(3);
+    myList.insertFront(6);
+    myList.insertFront(9);
+    myList.displayList();
+
+    myList.deleteFront();
+    myList.displayList();
+
+    myList.deleteFront();
+    myList.displayList();
+
+    myList.deleteFront();
+    myList.displayList();
+
+    return 0;
+}
