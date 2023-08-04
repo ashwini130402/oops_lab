@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Employee {
+private:
+    int empNo;
+    string empName;
+    double basicSalary;
+    double DA;
+    double IT;
+    double netSalary;
+    double grossSalary;
+
+public:
+    // Member function to read data of an employee
+    void readData() {
+        cout << "Enter Employee No: ";
+        cin >> empNo;
+        cout << "Enter Employee Name: ";
+        cin.ignore();
+        getline(cin, empName);
+        cout << "Enter Basic Salary: ";
+        cin >> basicSalary;
+    }
+
+    // Member function to calculate net salary of an employee
+    void calculateNetSalary() {
+        DA = 0.52 * basicSalary;
+        grossSalary = DA + basicSalary;
+        IT = 0.30 * grossSalary;
+        netSalary = DA + basicSalary - IT;
+    }
+
+    // Member function to print data of an employee
+    void printData() {
+        cout << "\nEmployee No: " << empNo << endl;
+        cout << "Employee Name: " << empName << endl;
+        cout << "Basic Salary: " << basicSalary << endl;
+        cout << "DA: " << DA << endl;
+        cout << "IT: " << IT << endl;
+        cout << "Gross Salary: " << grossSalary << endl;
+        cout << "Net Salary: " << netSalary << endl;
+    }
+};
+
+int main() {
+    int n;
+    cout << "Enter the number of employees: ";
+    cin >> n;
+
+    Employee *employees = new Employee[n];
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nEnter details of employee " << i + 1 << ":" << endl;
+        employees[i].readData();
+        employees[i].calculateNetSalary();
+    }
+
+    cout << "\nEmployee Details:\n";
+    for (int i = 0; i < n; i++) {
+        employees[i].printData();
+    }
+
+    delete[] employees;
+
+    return 0;
+}
